@@ -97,6 +97,15 @@ public class Stanza {
     public Attrezzo[] getAttrezzi() {
         return this.attrezzi;
     }
+    
+    /**
+     * Restituisce il numero di attrezzi presenti nella stanza.
+     * @return il numero di attrezzi nella stanza.
+     */
+    public int getNumeroAttrezzi() {
+        return this.numeroAttrezzi;
+    }
+
 
     /**
      * Mette un attrezzo nella stanza.
@@ -128,7 +137,8 @@ public class Stanza {
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");
     	for (Attrezzo attrezzo : this.attrezzi) {
-    		risultato.append(attrezzo.toString()+" ");
+    		if (attrezzo!=null)
+    			risultato.append(attrezzo.toString()+" ");
     	}
     	return risultato.toString();
     }
@@ -169,20 +179,27 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		if (attrezzo==null) return false;
-		
+		boolean rimosso;
+		rimosso = false;
+		if(attrezzo!=null) {
 		for(int i=0; i<this.numeroAttrezzi;i++) {
+			
 			if(this.attrezzi[i]!=null && this.attrezzi[i].getNome().equals(attrezzo.getNome())) {
+				
 				for(int j=i;j<this.numeroAttrezzi-1;j++) {
 					this.attrezzi[j]=this.attrezzi[j+1];
 				}
-				this.attrezzi[this.numeroAttrezzi-1] = null;
+				
+				this.attrezzi[numeroAttrezzi-1] = null;
 				this.numeroAttrezzi--;
-				return true;
+				rimosso=true;
+				
+				}
 			}
-		
 		}
-		return false;
+		
+		
+		return rimosso;
 	}
 
 

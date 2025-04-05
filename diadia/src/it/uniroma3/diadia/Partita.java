@@ -79,4 +79,8 @@ public class Partita {
 		player.setCfu(cfu);		
 	}
 	
+	public Giocatore getGiocatore() {
+		return this.player;
+	}
+	
 }

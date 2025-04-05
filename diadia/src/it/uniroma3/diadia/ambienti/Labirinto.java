@@ -51,11 +51,11 @@ public class Labirinto {
 		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
 		laboratorio.impostaStanzaAdiacente("est", atrio);
 		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
+		//biblioteca.impostaStanzaAdiacente("sud", atrio);
 
         /* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
+		aulaN11.addAttrezzo(osso);
 
 		// il gioco comincia nell'atrio
         stanzaCorrente = atrio;  

@@ -48,7 +48,7 @@ public class Attrezzo {
 	 * @return la rappresentazione stringa
 	 */
 	public String toString() {
-		return this.getNome()+" ("+this.getPeso()+"kg)";
+		return this.getNome()+" "+this.getPeso()+"kg";
 	}
 
 }
