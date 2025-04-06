@@ -33,7 +33,9 @@ public class Giocatore {
 	public boolean aggiungiAttrezzo(Attrezzo attrezzo) {
 		return borsa.addAttrezzo(attrezzo);
 	}
-	
+	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
+		return borsa.removeAttrezzo(nomeAttrezzo);
+	}
 	// gestione dei cfu
 	
 	public int getCfu() {

@@ -34,7 +34,7 @@ public class DiaDia {
 	private IOConsole interazione;
 	private Partita partita;
 	private Borsa borsa;
-
+	
 	public DiaDia() {
 		this.partita = new Partita();
 		this.borsa = new Borsa(); //inizializza borsa vuota
@@ -113,19 +113,24 @@ public class DiaDia {
 	/**
 	 * Comando "Prendi", prende un oggetto che è stato
 	 * trovato nella stanza.
+	 * @param nome dell'attrezzo da prendere
 	 */
 	private void prendi(String nomeAttrezzo) {
-		if(this.partita.getStanzaCorrente().getNumeroAttrezzi()!=0) {
 		Stanza stanzaCorrente = this.partita.getStanzaCorrente();
-		Attrezzo attrezzo = stanzaCorrente.getAttrezzo(nomeAttrezzo);  	//QUESTO È IL PROBLEMA. ATTREZZO VALE SEMPRE NULL 
+		if(stanzaCorrente.getNumeroAttrezzi()!=0) {
 			
-		if(stanzaCorrente.hasAttrezzo(nomeAttrezzo)) { 
-			if(this.partita.getGiocatore().aggiungiAttrezzo(attrezzo) && stanzaCorrente.removeAttrezzo(attrezzo))
-				interazione.mostraMessaggio("Hai preso "+ nomeAttrezzo +" e l'hai messo nella borsa!");
-			else
-				interazione.mostraMessaggio("Non sei riuscito a prendere l'attrezzo.");
-		}
-		else {
+			/*if(nomeAttrezzo==null) {
+				interazione.mostraMessaggio("Questo attrezzo non esiste!");
+			}*/
+			
+			Attrezzo attrezzo = stanzaCorrente.getAttrezzo(nomeAttrezzo);
+			if(stanzaCorrente.hasAttrezzo(nomeAttrezzo)) { 
+				if(this.borsa.addAttrezzo(attrezzo) && stanzaCorrente.removeAttrezzo(attrezzo))
+					interazione.mostraMessaggio("Hai preso "+ nomeAttrezzo +" e l'hai messo nella borsa!");
+				else
+					interazione.mostraMessaggio("Non sei riuscito a prendere l'attrezzo.");
+			}
+			else {
 				interazione.mostraMessaggio("Questo attrezzo non c'è qui!");
 			}
 		}	
@@ -141,26 +146,28 @@ public class DiaDia {
 	 */
 	private void posa() {
 		String nomeAttrezzo;
-		Scanner scanner = new Scanner(System.in);
-		Attrezzo attrezzo;
+		Stanza stanzaCorrente = this.partita.getStanzaCorrente();
+		if(borsa.isEmpty())
+			interazione.mostraMessaggio("Non hai nessun oggetto nella borsa!");
+		else {
+			interazione.mostraMessaggio("Scegli l'attrezzo che vuoi posare: ");
+			interazione.mostraMessaggio(borsa.toString());  //stampa il contenuto della borsa
 		
-		System.out.println("Scegli l'attrezzo che vuoi posare: ");
-		System.out.println(borsa.toString());  //stampa il contenuto della borsa
-		nomeAttrezzo = scanner.nextLine();
+		nomeAttrezzo = interazione.leggiRiga();
 		
 		if(nomeAttrezzo==null) 
-			System.out.println("Prima scegli l'attrezzo che vuoi posare.");
+			interazione.mostraMessaggio("Questo attrezzo non esiste!");
 		
-		else if(borsa.hasAttrezzo(nomeAttrezzo)) {
-			attrezzo = new Attrezzo(nomeAttrezzo,borsa.getAttrezzo(nomeAttrezzo).getPeso());
-			
-			if(this.partita.getStanzaCorrente().addAttrezzo(attrezzo) && (borsa.removeAttrezzo(nomeAttrezzo).getNome().equals(attrezzo.getNome())))
-				System.out.println("Hai posato l'attrezzo nella stanza. ");		
+		Attrezzo attrezzo=this.borsa.removeAttrezzo(nomeAttrezzo);
+		if(borsa.getAttrezzo(nomeAttrezzo)!=null) {
+			if(stanzaCorrente.addAttrezzo(attrezzo) && (borsa.removeAttrezzo(nomeAttrezzo).getNome().equals(attrezzo.getNome())))
+				interazione.mostraMessaggio("Hai posato l'attrezzo nella stanza. ");		
 			else
-				System.out.println("Non hai posato l'attrezzo nella stanza. ");		
+				interazione.mostraMessaggio("Non hai posato l'attrezzo nella stanza. ");		
 		}
 		else 
-			System.out.println("Quell'attrezzo non è nella tua borsa... ");		
+			interazione.mostraMessaggio("Quell'attrezzo non è nella tua borsa... ");
+	}
 	}
 	
 	

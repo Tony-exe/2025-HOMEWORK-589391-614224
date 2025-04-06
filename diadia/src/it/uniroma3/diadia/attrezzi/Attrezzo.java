@@ -32,7 +32,7 @@ public class Attrezzo {
 	 * @return il nome identificatore dell'attrezzo
 	 */
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	/**
