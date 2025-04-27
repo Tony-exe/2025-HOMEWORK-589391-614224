@@ -33,9 +33,19 @@ public class Giocatore {
 	public boolean aggiungiAttrezzo(Attrezzo attrezzo) {
 		return borsa.addAttrezzo(attrezzo);
 	}
-	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-		return borsa.removeAttrezzo(nomeAttrezzo);
+	
+	// RIMUOVI ATTREZZO DALLA BORSA
+	public Attrezzo removeAttrezzo(Attrezzo attrezzo) {
+		if(attrezzo!=null)
+			return borsa.removeAttrezzo(attrezzo.getNome());
+		return null;
 	}
+	
+	//ritorna la borsa
+	public Borsa getBorsa() {
+		return this.borsa;
+	}
+	
 	// gestione dei cfu
 	
 	public int getCfu() {

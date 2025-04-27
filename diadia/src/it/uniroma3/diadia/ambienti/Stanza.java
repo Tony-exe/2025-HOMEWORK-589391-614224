@@ -150,10 +150,11 @@ public class Stanza {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo != null && attrezzo.getNome().equals(nomeAttrezzo))
-				trovato = true;
-			break;
+		for (Attrezzo att : this.attrezzi) {
+			if(att!=null) {
+				if (att.getNome().equals(nomeAttrezzo))
+					trovato = true;
+			}
 		}
 		return trovato;
 	}
@@ -165,14 +166,16 @@ public class Stanza {
      * 		   null se l'attrezzo non e' presente.
 	 */
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		Attrezzo attrezzoCercato;
-		attrezzoCercato = null;
+		//Attrezzo attrezzoCercato;
+		//attrezzoCercato = null;
 		for (Attrezzo attrezzo : this.attrezzi) {
-			if(attrezzo != null && attrezzo.getNome().equals(nomeAttrezzo)) 
-				attrezzoCercato = attrezzo;
-			break;
+			if (attrezzo.getNome().equals(nomeAttrezzo)) {
+				return attrezzo;
+				//attrezzoCercato = attrezzo;
+			}
 		}
-		return attrezzoCercato;	
+		return null;
+		//return attrezzoCercato;	
 	}
 
 	/**

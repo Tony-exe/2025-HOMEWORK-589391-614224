@@ -19,7 +19,7 @@ public class Labirinto {
 	public Stanza stanzaVincente;
 	
 	public Labirinto() {
-		creaStanze();
+		this.creaStanze();
 	}
 	
 	
@@ -31,8 +31,7 @@ public class Labirinto {
 		/* crea gli attrezzi */
     	Attrezzo lanterna = new Attrezzo("lanterna",3);
 		Attrezzo osso = new Attrezzo("osso",1);
-    	Attrezzo libro = new Attrezzo("libro", 2);
-		
+    	
 		/* crea stanze del labirinto */
 		Stanza atrio = new Stanza("Atrio");
 		Stanza aulaN11 = new Stanza("Aula N11");
@@ -52,12 +51,11 @@ public class Labirinto {
 		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
 		laboratorio.impostaStanzaAdiacente("est", atrio);
 		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-		//biblioteca.impostaStanzaAdiacente("sud", atrio);
+		biblioteca.impostaStanzaAdiacente("sud", atrio);
 
         /* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
-		aulaN11.addAttrezzo(libro);
+		aulaN11.addAttrezzo(osso);
 
 		// il gioco comincia nell'atrio
         stanzaCorrente = atrio;  

@@ -35,7 +35,9 @@ public class Borsa {
 			return false;
 		this.attrezzi[this.numeroAttrezzi] = attrezzo;
 		this.numeroAttrezzi++;
+		System.out.println(this.toString());
 		return true;
+		
 	}
 	
 	public int getPesoMax() {
@@ -45,8 +47,8 @@ public class Borsa {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		for (int i= 0; i<this.numeroAttrezzi; i++)
-			if (this.attrezzi[i]!=null && this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
+			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
+		a = attrezzi[i];
 		
 		return a;
 	}
@@ -74,28 +76,30 @@ public class Borsa {
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
 		
-		if (nomeAttrezzo==null) return a;
+		if (nomeAttrezzo.equals(null)) return null;
 		
 		for(int i=0; i<this.numeroAttrezzi;i++) {
 			if(this.attrezzi[i]!=null && this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
+				a=this.attrezzi[i];
 				for(int j=i;j<this.numeroAttrezzi-1;j++) {
-					a=this.attrezzi[j];
 					this.attrezzi[j]=this.attrezzi[j+1];
 				}
 				this.attrezzi[this.numeroAttrezzi-1] = null;
 				this.numeroAttrezzi--;
+
+				return a;
 			}
 		}
-		return a;
+		return null;
 	}
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 
 		if (!this.isEmpty()) {
-			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): \n");
+			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
 			for (int i= 0; i<this.numeroAttrezzi; i++)
-				s.append("- "+attrezzi[i].toString()+" \n");
+				s.append(attrezzi[i].toString()+" ");
 		}
 		else
 			s.append("Borsa vuota");
