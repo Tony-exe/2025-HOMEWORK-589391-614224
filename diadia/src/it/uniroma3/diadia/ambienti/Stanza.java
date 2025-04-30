@@ -105,6 +105,10 @@ public class Stanza {
     public int getNumeroAttrezzi() {
         return this.numeroAttrezzi;
     }
+    
+    public void setNumeroAttrezzi(int numeroAttrezzi) {
+    	this.numeroAttrezzi=numeroAttrezzi;
+    }
 
 
     /**

@@ -4,7 +4,11 @@ import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.giocatore.Borsa;
+//import it.uniroma3.diadia.IOConsole;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -29,21 +33,20 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	private IOConsole interazione;
+	private IO io;
 	private Partita partita;
 
 	public DiaDia() {
 		this.partita = new Partita();
-		this.interazione = new IOConsole();
+		this.io = new IOConsole();
 	}
 
 	public void gioca() {
 		String istruzione; 
 		
-	
-		interazione.mostraMessaggio(MESSAGGIO_BENVENUTO);		
+		io.mostraMessaggio(MESSAGGIO_BENVENUTO);		
 		do		
-			istruzione = interazione.leggiRiga();
+			istruzione = io.leggiRiga();
 		while (!processaIstruzione(istruzione));
 	}   
 
@@ -59,65 +62,13 @@ public class DiaDia {
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		if(this.partita.vinta()) 
-			interazione.mostraMessaggio("Hai vinto!");
+			io.mostraMessaggio("Hai vinto!");
 		return this.partita.isFinita();
 	}   
 	
-	/**
-	 * Comando "Prendi", prende un oggetto che è stato
-	 * trovato nella stanza.
-	 */
-	private void prendi(String nomeAttrezzo) {
-		if(this.partita.getStanzaCorrente().getNumeroAttrezzi()!=0) {
-			Stanza stanzaCorrente = this.partita.getStanzaCorrente();
-			Attrezzo attrezzo = stanzaCorrente.getAttrezzo(nomeAttrezzo);  	//QUESTO È IL PROBLEMA. ATTREZZO VALE SEMPRE NULL 
-				
-			if(stanzaCorrente.hasAttrezzo(nomeAttrezzo)) { 
-				if(this.partita.getGiocatore().aggiungiAttrezzo(attrezzo) && stanzaCorrente.removeAttrezzo(attrezzo))
-					interazione.mostraMessaggio("Hai preso "+ nomeAttrezzo +" e l'hai messo nella borsa!");
-				else
-					interazione.mostraMessaggio("Non sei riuscito a prendere l'attrezzo.");
-			}
-			else {
-					interazione.mostraMessaggio("Questo attrezzo non c'è qui!");
-				}
-		}	
-		else if(this.partita.getStanzaCorrente().getNumeroAttrezzi()==0){
-			System.out.println("\nNon c'è nulla da prendere qui!\n");
-		}
-	}
-	
-	
-	/**
-	 * Comando "Posa", prende un oggetto dalla borsa e lo 
-	 * posa nella stanza.
-	 */
-	private void posa() {
-		String nomeAttrezzo;
-		Scanner scanner = new Scanner(System.in);
-		Attrezzo attrezzo;
-		
-		System.out.println("Scegli l'attrezzo che vuoi posare: ");
-		System.out.println(this.partita.getGiocatore().getBorsa().toString());  
-		nomeAttrezzo = scanner.nextLine();
-		
-		if(nomeAttrezzo==null) 
-			System.out.println("Prima scegli l'attrezzo che vuoi posare.");
-		
-		else if(this.partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
-			attrezzo = new Attrezzo(nomeAttrezzo,this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo).getPeso());
-			
-			this.partita.getStanzaCorrente().addAttrezzo(attrezzo);
-			this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			System.out.println("Hai posato l'attrezzo.");		
 
-		}
-		else 
-			System.out.println("Quell'attrezzo non è nella tua borsa... ");		
-	}
-	
 	public static void main(String[] argc) {
-		//IOConsole interazione = new IOConsole();
+		//IO io = new IOConsole();
 		DiaDia gioco = new DiaDia();
 		gioco.gioca();
 	}

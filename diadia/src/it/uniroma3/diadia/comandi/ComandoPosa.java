@@ -1,14 +1,19 @@
-package it.uniroma3.diadia;
+package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+/**
+ * Comando "Posa", prende un oggetto dalla borsa e lo 
+ * posa nella stanza.
+ */
 
 public class ComandoPosa implements Comando {
 	private String nomeAttrezzo;
 	@Override
 	public void esegui(Partita partita) {
-		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		Attrezzo attrezzo;
 		if(nomeAttrezzo==null) {
@@ -33,7 +38,6 @@ public class ComandoPosa implements Comando {
 
 	@Override
 	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
 		this.nomeAttrezzo=parametro;
 	}
 

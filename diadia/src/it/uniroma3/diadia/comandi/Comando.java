@@ -1,5 +1,6 @@
-package it.uniroma3.diadia;
-import it.uniroma3.diadia.ambienti.Stanza;
+package it.uniroma3.diadia.comandi;
+
+import it.uniroma3.diadia.Partita;
 
 public interface Comando {
 	/**
