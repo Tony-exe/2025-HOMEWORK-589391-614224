@@ -19,7 +19,7 @@ public class ComandoVai implements Comando {
 			System.out.println("Devi specificare anche la direzione!");
 			return;
 		}
-		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
+		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione, partita);
 		if(prossimaStanza==null) {
 			System.out.println("Direzione inesistente");
 			return;

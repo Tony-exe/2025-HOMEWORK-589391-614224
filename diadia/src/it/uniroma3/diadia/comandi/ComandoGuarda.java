@@ -9,7 +9,7 @@ public class ComandoGuarda implements Comando {
 	public void esegui(Partita partita) {
 		// TODO Auto-generated method stub
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
-		System.out.println(stanzaCorrente.toString());
+		System.out.println(stanzaCorrente.getDescrizione(partita.getGiocatore()));
 	}
 
 	@Override
